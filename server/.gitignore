@@ -1,0 +1,9 @@
+# Build artifacts
+oscar-server
+/server
+*.exe
+
+# Runtime database
+*.db
+*.db-shm
+*.db-wal
