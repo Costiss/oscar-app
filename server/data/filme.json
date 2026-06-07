@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "nome": "Piratas do Caribe",
+    "genero": "Aventura",
+    "foto": "http://200.236.3.97/imagens/piratas.jpeg"
+  },
+  {
+    "id": "2",
+    "nome": "Oppenheimer",
+    "genero": "Drama",
+    "foto": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"
+  },
+  {
+    "id": "3",
+    "nome": "Duna",
+    "genero": "Ficcao Cientifica",
+    "foto": "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg"
+  },
+  {
+    "id": "4",
+    "nome": "Parasita",
+    "genero": "Suspense",
+    "foto": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"
+  },
+  {
+    "id": "10",
+    "nome": "La La Land",
+    "genero": "Musical",
+    "foto": "http://200.236.3.97/imagens/land.jpeg"
+  }
+]
