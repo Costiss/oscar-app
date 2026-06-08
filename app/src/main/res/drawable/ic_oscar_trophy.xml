@@ -1,0 +1,45 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="240dp"
+    android:viewportWidth="120"
+    android:viewportHeight="180">
+
+    <!-- Base plinth -->
+    <path
+        android:fillColor="@color/oscar_gold_dark"
+        android:pathData="M34,158 L86,158 L90,178 L30,178 Z" />
+    <path
+        android:fillColor="@color/oscar_gold"
+        android:pathData="M40,142 L80,142 L84,158 L36,158 Z" />
+
+    <!-- Pedestal column -->
+    <path
+        android:fillColor="@color/oscar_gold_light"
+        android:pathData="M52,118 L68,118 L70,142 L50,142 Z" />
+
+    <!-- Standing figure: head -->
+    <path
+        android:fillColor="@color/oscar_gold"
+        android:pathData="M60,18 m-10,0 a10,10 0 1,0 20,0 a10,10 0 1,0 -20,0" />
+
+    <!-- Body / torso with arms crossed -->
+    <path
+        android:fillColor="@color/oscar_gold"
+        android:pathData="M48,32
+            C48,30 72,30 72,32
+            L74,70
+            C74,80 70,90 70,100
+            L50,100
+            C50,90 46,80 46,70
+            Z" />
+
+    <!-- Crossed-arms highlight -->
+    <path
+        android:fillColor="@color/oscar_gold_light"
+        android:pathData="M50,54 L70,54 L70,62 L50,62 Z" />
+
+    <!-- Legs -->
+    <path
+        android:fillColor="@color/oscar_gold_dark"
+        android:pathData="M52,100 L68,100 L66,120 L54,120 Z" />
+</vector>

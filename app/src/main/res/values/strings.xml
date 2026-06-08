@@ -1,3 +1,52 @@
 <resources>
-    <string name="app_name">oscarapp</string>
+    <string name="app_name">Oscar App</string>
+
+    <!-- Activity titles -->
+    <string name="titulo_votar_filme">Votar em Filme</string>
+    <string name="titulo_detalhe_filme">Detalhes do Filme</string>
+    <string name="titulo_votar_diretor">Votar em Diretor</string>
+    <string name="titulo_confirmar_voto">Confirmar Voto</string>
+
+    <!-- Login -->
+    <string name="login_titulo">Oscar App</string>
+    <string name="login_subtitulo">Academia Internacional de Cinema</string>
+    <string name="login_hint_usuario">Login</string>
+    <string name="login_hint_senha">Senha</string>
+    <string name="login_entrar">Entrar</string>
+    <string name="login_campos_obrigatorios">Preencha login e senha</string>
+
+    <!-- Boas-vindas -->
+    <string name="bv_saudacao">Bem-vindo(a), %1$s!</string>
+    <string name="bv_token_label">Seu token de votação</string>
+    <string name="bv_votar_filme">Votar Filme</string>
+    <string name="bv_votar_diretor">Votar Diretor</string>
+    <string name="bv_confirmar_voto">Confirmar Voto</string>
+    <string name="bv_sair">Sair</string>
+    <string name="oscar_trophy_desc">Troféu do Oscar</string>
+
+    <!-- Filme -->
+    <string name="poster_desc">Pôster do filme</string>
+    <string name="votar">Votar</string>
+    <string name="filme_selecionado">Filme selecionado: %1$s</string>
+
+    <!-- Diretor -->
+    <string name="diretor_confirmar_selecao">Selecionar Diretor</string>
+    <string name="diretor_selecione">Selecione um diretor antes de confirmar</string>
+    <string name="diretor_selecionado">Diretor selecionado: %1$s</string>
+
+    <!-- Confirmar voto -->
+    <string name="cv_filme_votado">Filme votado</string>
+    <string name="cv_diretor_votado">Diretor votado</string>
+    <string name="cv_token_hint">Token recebido no login</string>
+    <string name="cv_confirmar">Confirmar Voto</string>
+    <string name="cv_nenhum">— nenhum —</string>
+    <string name="cv_falta_selecao">Você precisa escolher um filme e um diretor antes de confirmar.</string>
+    <string name="cv_token_obrigatorio">Informe o token recebido no login.</string>
+    <string name="cv_voto_bloqueado">Voto já confirmado. Não é possível alterar.</string>
+
+    <!-- Diálogos -->
+    <string name="dlg_sucesso">Sucesso</string>
+    <string name="dlg_erro">Erro</string>
+    <string name="dlg_ok">OK</string>
+    <string name="erro_rede">Falha de conexão com o servidor. Tente novamente.</string>
 </resources>
