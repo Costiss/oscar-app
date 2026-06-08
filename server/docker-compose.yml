@@ -1,0 +1,17 @@
+services:
+  server:
+    build: .
+    image: oscarapp-server
+    container_name: oscarapp-server
+    # Rede do host: o servidor se vincula diretamente à :8080 do host.
+    # Note que, no modo host, o mapeamento `ports:` é ignorado — ajuste o
+    # endereço de escuta pela flag -addr abaixo.
+    network_mode: host
+    restart: unless-stopped
+    command: ["-addr", ":8080", "-db", "/app/db/oscarapp.db", "-data", "data"]
+    volumes:
+      # Persiste o banco SQLite entre reinícios do contêiner.
+      - oscar-db:/app/db
+
+volumes:
+  oscar-db:

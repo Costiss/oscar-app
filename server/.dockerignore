@@ -1,0 +1,18 @@
+# Build artifacts
+oscar-server
+*.exe
+
+# Runtime database (built fresh inside the container)
+*.db
+*.db-shm
+*.db-wal
+
+# Docs / local tooling
+README.md
+API.md
+.idea
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+.dockerignore
