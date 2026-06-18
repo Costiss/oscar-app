@@ -8,6 +8,7 @@ package api
 import (
 	"encoding/json"
 	"errors"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -151,11 +152,45 @@ func (a *API) handleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *API) handleFilmes(w http.ResponseWriter, r *http.Request) {
-	a.serveDataFile(w, "filme.json")
+	a.serveRemoteFile(w, "http://200.236.3.97/filme.json")
 }
 
 func (a *API) handleDiretores(w http.ResponseWriter, r *http.Request) {
-	a.serveDataFile(w, "diretor.json")
+	a.serveRemoteFile(w, "http://200.236.3.97/diretor.json")
+}
+
+// serveRemoteFile busca um arquivo JSON de catálogo na URL informada a cada
+// requisição e o transmite ao cliente, de modo que o app reflita qualquer
+// alteração no catálogo de origem sem recompilar.
+func (a *API) serveRemoteFile(w http.ResponseWriter, url string) {
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Printf("erro buscando %s: %v", url, err)
+		writeErro(w, http.StatusBadGateway, "catalogo indisponivel")
+		return
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("status inesperado de %s: %d", url, resp.StatusCode)
+		writeErro(w, http.StatusBadGateway, "catalogo indisponivel")
+		return
+	}
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Printf("erro lendo resposta de %s: %v", url, err)
+		writeErro(w, http.StatusBadGateway, "catalogo indisponivel")
+		return
+	}
+	// Valida que é um JSON bem formado antes de servir.
+	if !json.Valid(data) {
+		writeErro(w, http.StatusBadGateway, "catalogo com json invalido")
+		return
+	}
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(data)
 }
 
 // serveDataFile transmite um arquivo JSON de catálogo do disco a cada requisição,
