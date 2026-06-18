@@ -64,6 +64,21 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <TextView
+            android:id="@+id/tvVotoRegistrado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/oscar_success_bg"
+            android:padding="16dp"
+            android:textColor="@color/oscar_success"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:text="✓ Seu voto já foi registrado e não pode ser alterado."
+            tools:visibility="visible"
+            xmlns:tools="http://schemas.android.com/tools" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVotarFilme"
             android:layout_width="match_parent"

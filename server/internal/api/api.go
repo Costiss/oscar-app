@@ -84,12 +84,26 @@ type loginRequest struct {
 	Senha string `json:"senha"`
 }
 
-// loginResponse is returned on a successful authentication. It carries the
-// session token (random 0-100) and the public user data only.
+// votoLogin reproduz um voto que o usuário já registrou, retornado no login para
+// que o cliente possa exibi-lo e travar a edição. Os nomes são resolvidos a
+// partir dos catálogos para que o app não precise de uma requisição extra só
+// para exibi-los.
+type votoLogin struct {
+	FilmeID     string `json:"filmeId"`
+	DiretorID   string `json:"diretorId"`
+	FilmeNome   string `json:"filmeNome"`
+	DiretorNome string `json:"diretorNome"`
+}
+
+// loginResponse é retornado em uma autenticação bem-sucedida. Carrega o token de
+// sessão (aleatório de 0 a 100) e apenas os dados públicos do usuário. Quando o
+// usuário já votou, jaVotou é true e voto carrega a escolha registrada.
 type loginResponse struct {
 	Sucesso bool          `json:"sucesso"`
 	Token   int           `json:"token"`
 	Usuario store.Usuario `json:"usuario"`
+	JaVotou bool          `json:"jaVotou"`
+	Voto    *votoLogin    `json:"voto,omitempty"`
 }
 
 func (a *API) handleLogin(w http.ResponseWriter, r *http.Request) {
@@ -116,7 +130,24 @@ func (a *API) handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusOK, loginResponse{Sucesso: true, Token: token, Usuario: usuario})
+	resp := loginResponse{Sucesso: true, Token: token, Usuario: usuario}
+
+	// Se o usuário já votou, reproduz o voto para que o app possa carregá-lo na
+	// sessão, exibi-lo na tela de boas-vindas e manter a edição travada.
+	voto, err := a.store.BuscarVoto(usuario.ID)
+	if err != nil {
+		log.Printf("erro buscando voto do usuario %d: %v", usuario.ID, err)
+	} else if voto != nil {
+		resp.JaVotou = true
+		resp.Voto = &votoLogin{
+			FilmeID:     voto.FilmeID,
+			DiretorID:   voto.DiretorID,
+			FilmeNome:   a.nomePorId("filme.json", voto.FilmeID),
+			DiretorNome: a.nomePorId("diretor.json", voto.DiretorID),
+		}
+	}
+
+	writeJSON(w, http.StatusOK, resp)
 }
 
 func (a *API) handleFilmes(w http.ResponseWriter, r *http.Request) {
@@ -223,6 +254,27 @@ func (a *API) idExiste(file, id string) bool {
 		}
 	}
 	return false
+}
+
+// nomePorId retorna o campo "nome" do item de catálogo com o id fornecido, ou
+// uma string vazia quando o id (ou o arquivo) não é encontrado.
+func (a *API) nomePorId(file, id string) string {
+	data, err := os.ReadFile(filepath.Join(a.dataDir, file))
+	if err != nil {
+		return ""
+	}
+	var itens []map[string]any
+	if json.Unmarshal(data, &itens) != nil {
+		return ""
+	}
+	for _, it := range itens {
+		if v, ok := it["id"].(string); ok && v == id {
+			if nome, ok := it["nome"].(string); ok {
+				return nome
+			}
+		}
+	}
+	return ""
 }
 
 // decodeBody decodifica o corpo JSON de uma requisição, rejeitando campos

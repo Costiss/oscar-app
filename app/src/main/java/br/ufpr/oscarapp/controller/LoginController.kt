@@ -24,7 +24,7 @@ class LoginController(private val scope: CoroutineScope) : BaseController() {
                 val response = RetrofitClient.api.login(LoginRequest(login, senha))
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
-                    Sessao.iniciar(body.usuario, body.token)
+                    Sessao.iniciar(body.usuario, body.token, body.voto)
                     Resultado.Sucesso(body)
                 } else {
                     Resultado.Erro(mensagemDeErro(response))

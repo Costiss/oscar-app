@@ -1,5 +1,7 @@
 package br.ufpr.oscarapp.model
 
+import br.ufpr.oscarapp.model.dto.VotoLogin
+
 /**
  * In-memory session state for the logged-in user.
  *
@@ -18,12 +20,20 @@ object Sessao {
     /** Once true, the vote is locked and editing must be blocked. */
     var votoConfirmado: Boolean = false
 
-    fun iniciar(usuario: Usuario, token: Int) {
+    fun iniciar(usuario: Usuario, token: Int, voto: VotoLogin? = null) {
         this.usuario = usuario
         this.token = token
-        this.filmeSelecionado = null
-        this.diretorSelecionado = null
-        this.votoConfirmado = false
+        if (voto != null) {
+            // The user has already voted: load the registered choice and lock
+            // editing. Genre/photo are unknown here and only the name is shown.
+            this.filmeSelecionado = Filme(voto.filmeId, voto.filmeNome, "", "")
+            this.diretorSelecionado = Diretor(voto.diretorId, voto.diretorNome)
+            this.votoConfirmado = true
+        } else {
+            this.filmeSelecionado = null
+            this.diretorSelecionado = null
+            this.votoConfirmado = false
+        }
     }
 
     fun limpar() {

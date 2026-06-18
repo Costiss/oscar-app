@@ -2,6 +2,7 @@ package br.ufpr.oscarapp.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import br.ufpr.oscarapp.R
 import br.ufpr.oscarapp.databinding.ActivityBoasVindasBinding
@@ -24,6 +25,17 @@ class BoasVindasActivity : AppCompatActivity() {
         binding.tvSaudacao.text =
             getString(R.string.bv_saudacao, Sessao.usuario?.nome ?: "")
         binding.tvToken.text = Sessao.token?.toString() ?: "—"
+
+        // When the user has already voted, inform them on the welcome screen and
+        // keep the registered choice visible. Editing stays locked everywhere.
+        if (Sessao.votoConfirmado) {
+            binding.tvVotoRegistrado.visibility = View.VISIBLE
+            binding.tvVotoRegistrado.text = getString(
+                R.string.bv_voto_registrado,
+                Sessao.filmeSelecionado?.nome ?: "",
+                Sessao.diretorSelecionado?.nome ?: ""
+            )
+        }
 
         binding.btnVotarFilme.setOnClickListener {
             startActivity(Intent(this, VotarFilmeActivity::class.java))

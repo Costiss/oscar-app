@@ -10,4 +10,8 @@
     <color name="oscar_bg">#FFFAF7F0</color>
     <color name="oscar_ink">#FF2B2B2B</color>
     <color name="oscar_gray">#FF6B6B6B</color>
+
+    <!-- Feedback -->
+    <color name="oscar_success">#FF2E7D32</color>
+    <color name="oscar_success_bg">#FFE6F4EA</color>
 </resources>

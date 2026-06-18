@@ -168,6 +168,24 @@ func (s *Store) seed() error {
 	return tx.Commit()
 }
 
+// BuscarVoto retorna o voto já registrado pelo usuário, ou (nil, nil) quando o
+// usuário ainda não votou. Usado no login para que o cliente possa carregar um
+// voto existente na sessão e travar a edição.
+func (s *Store) BuscarVoto(usuarioID int64) (*Voto, error) {
+	var v Voto
+	err := s.db.QueryRow(
+		"SELECT usuario_id, filme_id, diretor_id, criado_em FROM votos WHERE usuario_id = ?",
+		usuarioID,
+	).Scan(&v.UsuarioID, &v.FilmeID, &v.DiretorID, &v.CriadoEm)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	return &v, nil
+}
+
 // Autenticar valida as credenciais e, em caso de sucesso, gera um novo token de
 // sessão (inteiro aleatório de 0 a 100, único entre as sessões ativas), persiste-o
 // vinculado ao usuário e retorna o usuário junto com o token.

@@ -23,6 +23,7 @@
     <string name="bv_confirmar_voto">Confirmar Voto</string>
     <string name="bv_sair">Sair</string>
     <string name="oscar_trophy_desc">Troféu do Oscar</string>
+    <string name="bv_voto_registrado">✓ Seu voto já foi registrado e não pode ser alterado.\nFilme: %1$s\nDiretor: %2$s</string>
 
     <!-- Filme -->
     <string name="poster_desc">Pôster do filme</string>
