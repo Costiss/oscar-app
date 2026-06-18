@@ -37,10 +37,10 @@ o voto.
 { "login": "alice", "senha": "senha123" }
 ```
 
-| Campo   | Tipo   | Obrigatório | Observações       |
-|---------|--------|-------------|-------------------|
-| `login` | string | sim         | não vazio         |
-| `senha` | string | sim         | não vazio         |
+| Campo   | Tipo   | Obrigatório | Observações |
+| ------- | ------ | ----------- | ----------- |
+| `login` | string | sim         | não vazio   |
+| `senha` | string | sim         | não vazio   |
 
 **Sucesso — `200 OK`**
 
@@ -72,19 +72,19 @@ cliente possa exibi-lo e manter a edição travada:
 }
 ```
 
-| Campo     | Tipo    | Observações                                       |
-|-----------|---------|---------------------------------------------------|
-| `jaVotou` | boolean | `true` quando o usuário já registrou um voto      |
-| `voto`    | objeto  | presente apenas quando `jaVotou` é `true`         |
+| Campo     | Tipo    | Observações                                  |
+| --------- | ------- | -------------------------------------------- |
+| `jaVotou` | boolean | `true` quando o usuário já registrou um voto |
+| `voto`    | objeto  | presente apenas quando `jaVotou` é `true`    |
 
 **Erros**
 
-| Status | Quando                                       | Corpo                                                            |
-|--------|----------------------------------------------|------------------------------------------------------------------|
-| `400`  | JSON malformado / corpo ausente              | `{ "sucesso": false, "erro": "corpo da requisicao invalido" }`   |
-| `400`  | `login` ou `senha` vazios                     | `{ "sucesso": false, "erro": "login e senha sao obrigatorios" }` |
-| `401`  | usuário desconhecido ou senha incorreta       | `{ "sucesso": false, "erro": "login ou senha incorretos" }`      |
-| `500`  | falha interna ao autenticar                   | `{ "sucesso": false, "erro": "erro interno ao autenticar" }`     |
+| Status | Quando                                  | Corpo                                                            |
+| ------ | --------------------------------------- | ---------------------------------------------------------------- |
+| `400`  | JSON malformado / corpo ausente         | `{ "sucesso": false, "erro": "corpo da requisicao invalido" }`   |
+| `400`  | `login` ou `senha` vazios               | `{ "sucesso": false, "erro": "login e senha sao obrigatorios" }` |
+| `401`  | usuário desconhecido ou senha incorreta | `{ "sucesso": false, "erro": "login ou senha incorretos" }`      |
+| `500`  | falha interna ao autenticar             | `{ "sucesso": false, "erro": "erro interno ao autenticar" }`     |
 
 ---
 
@@ -99,24 +99,34 @@ A lista no Android deve renderizar corretamente para **qualquer** número de ite
 
 ```json
 [
-  { "id": "1", "nome": "Piratas do Caribe", "genero": "Aventura", "foto": "http://200.236.3.97/imagens/piratas.jpeg" },
-  { "id": "10", "nome": "La La Land", "genero": "Musical", "foto": "http://200.236.3.97/imagens/land.jpeg" }
+  {
+    "id": "1",
+    "nome": "Piratas do Caribe",
+    "genero": "Aventura",
+    "foto": "http://200.236.3.97/imagens/piratas.jpeg"
+  },
+  {
+    "id": "10",
+    "nome": "La La Land",
+    "genero": "Musical",
+    "foto": "http://200.236.3.97/imagens/land.jpeg"
+  }
 ]
 ```
 
-| Campo    | Tipo   | Observações                          |
-|----------|--------|--------------------------------------|
-| `id`     | string | id único do filme                    |
-| `nome`   | string | título                               |
-| `genero` | string | gênero                               |
+| Campo    | Tipo   | Observações                                   |
+| -------- | ------ | --------------------------------------------- |
+| `id`     | string | id único do filme                             |
+| `nome`   | string | título                                        |
+| `genero` | string | gênero                                        |
 | `foto`   | string | URL do pôster (carregada de forma assíncrona) |
 
 **Erros**
 
-| Status | Quando                                                 | `erro`                       |
-|--------|--------------------------------------------------------|------------------------------|
+| Status | Quando                                                   | `erro`                       |
+| ------ | -------------------------------------------------------- | ---------------------------- |
 | `502`  | upstream inacessível, status não-200 ou falha de leitura | `catalogo indisponivel`      |
-| `502`  | o upstream respondeu com JSON inválido                  | `catalogo com json invalido` |
+| `502`  | o upstream respondeu com JSON inválido                   | `catalogo com json invalido` |
 
 ---
 
@@ -135,10 +145,10 @@ Retorna a lista de diretores indicados, **buscada do upstream remoto**
 ]
 ```
 
-| Campo  | Tipo   | Observações          |
-|--------|--------|----------------------|
-| `id`   | string | id único do diretor  |
-| `nome` | string | nome do diretor      |
+| Campo  | Tipo   | Observações         |
+| ------ | ------ | ------------------- |
+| `id`   | string | id único do diretor |
+| `nome` | string | nome do diretor     |
 
 **Erros** — os mesmos de `GET /api/filmes` (`502` com `catalogo indisponivel`
 ou `catalogo com json invalido`).
@@ -159,10 +169,10 @@ bem-sucedido ele é limpo e não pode ser reutilizado.
 { "filmeId": "3", "diretorId": "22", "token": 42 }
 ```
 
-| Campo       | Tipo    | Obrigatório | Observações                          |
-|-------------|---------|-------------|--------------------------------------|
-| `filmeId`   | string  | sim         | deve existir no catálogo de filmes   |
-| `diretorId` | string  | sim         | deve existir no catálogo de diretores|
+| Campo       | Tipo    | Obrigatório | Observações                            |
+| ----------- | ------- | ----------- | -------------------------------------- |
+| `filmeId`   | string  | sim         | deve existir no catálogo de filmes     |
+| `diretorId` | string  | sim         | deve existir no catálogo de diretores  |
 | `token`     | inteiro | sim         | token de sessão retornado por `/login` |
 
 **Sucesso — `200 OK`**
@@ -177,14 +187,14 @@ bem-sucedido ele é limpo e não pode ser reutilizado.
 
 **Erros**
 
-| Status | Quando                                    | `erro`                                |
-|--------|-------------------------------------------|---------------------------------------|
-| `400`  | JSON malformado / corpo ausente           | `corpo da requisicao invalido`        |
-| `400`  | `token` ausente                           | `token e obrigatorio`                 |
-| `400`  | `filmeId` ou `diretorId` vazios           | `filmeId e diretorId sao obrigatorios`|
-| `400`  | id não presente no catálogo local         | `filmeId inexistente` / `diretorId inexistente` |
-| `401`  | token desconhecido / já consumido         | `token invalido ou expirado`          |
-| `409`  | usuário já registrou um voto              | `este usuario ja registrou seu voto`  |
+| Status | Quando                            | `erro`                                          |
+| ------ | --------------------------------- | ----------------------------------------------- |
+| `400`  | JSON malformado / corpo ausente   | `corpo da requisicao invalido`                  |
+| `400`  | `token` ausente                   | `token e obrigatorio`                           |
+| `400`  | `filmeId` ou `diretorId` vazios   | `filmeId e diretorId sao obrigatorios`          |
+| `400`  | id não presente no catálogo local | `filmeId inexistente` / `diretorId inexistente` |
+| `401`  | token desconhecido / já consumido | `token invalido ou expirado`                    |
+| `409`  | usuário já registrou um voto      | `este usuario ja registrou seu voto`            |
 
 ---
 
@@ -207,10 +217,19 @@ bem-sucedido ele é limpo e não pode ser reutilizado.
 
 ## Usuários de teste pré-cadastrados
 
-| login   | senha      | estado                              |
-|---------|------------|-------------------------------------|
-| `alice` | `senha123` | já possui um voto confirmado        |
-| `bob`   | `senha123` | disponível para votar               |
-| `carol` | `senha123` | disponível para votar               |
-| `dave`  | `senha123` | nunca usado (sem token, sem voto)   |
-| `eve`   | `senha123` | nunca usado (sem token, sem voto)   |
+| login   | senha      | estado                            |
+| ------- | ---------- | --------------------------------- |
+| `alice` | `senha123` | já possui um voto confirmado      |
+| `bob`   | `senha123` | disponível para votar             |
+| `carol` | `senha123` | disponível para votar             |
+| `dave`  | `senha123` | nunca usado (sem token, sem voto) |
+| `eve`   | `senha123` | nunca usado (sem token, sem voto) |
+
+```sh
+curl -s -X POST localhost:8080/api/login -d '{"login":"bob","senha":"senha123"}'
+# catalogs
+curl -s localhost:8080/api/filmes
+curl -s localhost:8080/api/diretores
+# vote (use the token returned by login)
+curl -s -X POST localhost:8080/api/votos -d '{"filmeId":"3","diretorId":"22","token":42}'
+```
